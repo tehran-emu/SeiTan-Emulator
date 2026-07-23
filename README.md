@@ -1,66 +1,86 @@
 # SeiTan-Emulator
-### **English Explanation**  
-This Bash script (`install.sh`) is an **automated installer** for running **Windows 11** on Android devices via **Termux** and **Termux:X11**. It is designed to handle the entire setup process with minimal user intervention. Here is a breakdown of its core functionality:
 
-1. **System Validation**  
-   - It first checks if the script is running inside Termux by verifying the presence of the `termux-setup-storage` command. If not, it exits with an error.
+# راهنمای کامل نصب SeiTan Emulator روی Termux
 
-2. **Initial Setup & Dependencies**  
-   - Requests storage permissions (`termux-setup-storage`).  
-   - Updates and upgrades Termux packages (`pkg update && pkg upgrade`).  
-   - Installs required tools: `proot-distro`, `wget`, `curl`, `p7zip`, `tar`, `xz-utils`, `pulseaudio`, and `termux-x11`.
+## 📖 درباره اسکریپت (About the Script)
 
-3. **Downloading Windows 11 Files**  
-   - Creates a download directory (`/sdcard/Download/windows11`).  
-   - Downloads three split archive files (`Win11.7z.001`, `.002`, `.003`) from a **Windroid_11** release on GitHub ([citation:9]). The total size is approximately **2–3 GB**.
+**فارسی:**  
+اسکریپت `install.sh` متعلق به پروژه **SeiTan Emulator**، یک ابزار خودکار برای نصب و اجرای ویندوز ۱۱ در محیط Termux روی دستگاه‌های اندرویدی است. این اسکریپت تمام مراحل مورد نیاز از جمله نصب وابستگی‌ها، دانلود فایل‌های ویندوز، استخراج و تنظیمات اولیه را به صورت کاملاً خودکار انجام می‌دهد [citation:9].
 
-4. **Extraction & Configuration**  
-   - Extracts the downloaded archives using `7z` into the Termux home directory (`/data/data/com.termux/files/home/`).  
-   - Makes the extracted `Win11` script executable.  
-   - Automatically runs the `Win11` setup script with predefined inputs (`y`, `N`, `N`, `N`) to accept default configurations.
-
-5. **Creating a Shortcut**  
-   - Generates a startup script (`start-windows11.sh`) that sets the `DISPLAY` environment variable, starts `pulseaudio`, and launches the `Win11` script. This shortcut is placed in the Termux home directory for easy access.
-
-6. **Final Instructions**  
-   - Displays a completion message with step-by-step instructions to:  
-     - Open the **Termux:X11** app.  
-     - Run `./start-windows11.sh` in Termux.  
-   - Highlights important notes:  
-     - On **Android 12+**, you must disable the **Phantom Process Killer** using an ADB command ([citation:9]).  
-     - Minimum requirements: **4 GB RAM**, **15 GB free storage**, and an **ARM64** processor.
-
-In essence, this script turns a complex, multi-step process into a **single-command installation** for running Windows 11 on an Android device through Termux.
+**English:**  
+The `install.sh` script from the **SeiTan Emulator** project is an automated tool for installing and running Windows 11 within the Termux environment on Android devices. This script handles all necessary steps, including dependency installation, downloading Windows files, extraction, and initial setup, fully automatically [citation:9].
 
 ---
 
-### **توضیحات فارسی**  
-این اسکریپت bash (با نام `install.sh`) یک **نصب‌کننده خودکار** برای اجرای **ویندوز ۱۱** روی دستگاه‌های اندروید از طریق **Termux** و **Termux:X11** است. هدف آن انجام تمام مراحل راه‌اندازی با کمترین دخالت کاربر است. عملکرد اصلی آن به شرح زیر است:
+## 🚀 مراحل نصب در گیت‌هاب و ترموکس (GitHub & Termux Installation Steps)
 
-1. **اعتبارسنجی سیستم**  
-   - ابتدا بررسی می‌کند که اسکریپت در محیط Termux اجرا می‌شود یا نه (با بررسی وجود دستور `termux-setup-storage`). در غیر این صورت، با خطا خارج می‌شود.
+### **مرحله ۱: آماده‌سازی Termux** (Step 1: Prepare Termux)
+*   نسخه مناسب Termux را از **F-Droid** یا **GitHub** نصب کنید (نسخه Google Play محدودیت دارد) [citation:9].
+*   دسترسی‌های لازم را به برنامه بدهید.
 
-2. **راه‌اندازی اولیه و وابستگی‌ها**  
-   - درخواست دسترسی به حافظه (`termux-setup-storage`).  
-   - به‌روزرسانی و ارتقای پکیج‌های Termux (`pkg update && pkg upgrade`).  
-   - نصب ابزارهای مورد نیاز: `proot-distro`، `wget`، `curl`، `p7zip`، `tar`، `xz-utils`، `pulseaudio` و `termux-x11`.
+### **مرحله ۲: اجرای دستور نصب** (Step 2: Run the Installation Command)
+یک دستور ساده کافی است. این دستور اسکریپت را از مخزن گیت‌هاب دانلود و اجرا می‌کند:
 
-3. **دانلود فایل‌های ویندوز ۱۱**  
-   - ایجاد پوشه دانلود (`/sdcard/Download/windows11`).  
-   - دانلود سه فایل آرشیو چندبخشی (`Win11.7z.001`، `.002` و `.003`) از یک انتشار در GitHub مربوط به **Windroid_11** ([citation:9]). حجم کل تقریباً **۲ تا ۳ گیگابایت** است.
+```bash
+curl -s https://raw.githubusercontent.com/tehran-emu/SeiTan-Emulator/refs/heads/main/install.sh | bash
+```
 
-4. **استخراج و پیکربندی**  
-   - استخراج آرشیوهای دانلود شده با استفاده از `7z` در پوشه خانه Termux (`/data/data/com.termux/files/home/`).  
-   - قابل اجرا کردن اسکریپت `Win11` استخراج شده.  
-   - اجرای خودکار اسکریپت راه‌اندازی `Win11` با ورودی‌های از پیش تعیین شده (`y`، `N`، `N`، `N`) برای پذیرش تنظیمات پیش‌فرض.
+**توجه:** در صورت بروز مشکل در دانلود، می‌توانید مخزن را Clone کنید:
+```bash
+git clone https://github.com/tehran-emu/SeiTan-Emulator.git
+cd SeiTan-Emulator
+chmod +x install.sh
+./install.sh
+```
 
-5. **ایجاد میانبر**  
-   - تولید یک اسکریپت راه‌اندازی (`start-windows11.sh`) که متغیر محیطی `DISPLAY` را تنظیم، `pulseaudio` را شروع و اسکریپت `Win11` را اجرا می‌کند. این میانبر در پوشه خانه Termux قرار می‌گیرد تا دسترسی آسان باشد.
+### **مرحله ۳: طی کردن فرآیند خودکار نصب** (Step 3: Follow the Automated Process)
+اسکریپت به ترتیب زیر را انجام می‌دهد [citation:9]:
+1.  **بررسی سیستم** (System Check): اطمینان از اجرا در Termux.
+2.  **راه‌اندازی اولیه** (Initial Setup): درخواست دسترسی به حافظه و به‌روزرسانی پکیج‌ها (`pkg update`).
+3.  **نصب وابستگی‌ها** (Install Dependencies): نصب خودکار ابزارهای مورد نیاز مانند `proot-distro`, `wget`, `p7zip`, `termux-x11` و غیره.
+4.  **دانلود فایل‌های ویندوز** (Download Windows): دانلود فایل‌های ویندوز ۱۱ (حدود ۲-۳ گیگابایت) از منابع معتبر [citation:9].
+5.  **استخراج فایل‌ها** (Extract Files): خارج‌سازی فایل‌ها در دایرکتوری خانه Termux (حدود ۱۵ دقیقه زمان می‌برد).
+6.  **راه‌اندازی ویندوز** (Setup Windows): اجرای اسکریپت تنظیمات اولیه ویندوز.
+7.  **ایجاد میانبر** (Create Shortcut): ساخت فایل اجرایی `start-windows11.sh` برای راه‌اندازی آسان‌تر.
 
-6. **دستورالعمل نهایی**  
-   - نمایش پیام تکمیل با راهنمای گام‌به‌گام برای:  
-     - باز کردن اپلیکیشن **Termux:X11**.  
-     - اجرای `./start-windows11.sh` در Termux.  
-   - تأکید بر نکات مهم:  
-     - در **اندروید ۱۲ و بالاتر**، باید **Phantom Process Killer** را با استفاده از دستور ADB غیرفعال کنید ([citation:9]).  
-     - حداقل نیازمندی‌ها: **۴ گیگابایت رم**، **۱۵ گیگابایت فضای خالی** و پردازنده **ARM64**.
+### **مرحله ۴: اجرای ویندوز ۱۱** (Step 4: Run Windows 11)
+پس از اتمام نصب، برای اجرای ویندوز ۱۱:
+1.  اپلیکیشن **Termux:X11** را باز کنید (قبل از اجرا).
+2.  در ترمینال Termux، دستور زیر را وارد کنید:
+    ```bash
+    ./start-windows11.sh
+    ```
+3.  منتظر بمانید تا محیط گرافیکی ویندوز ۱۱ بارگذاری شود.
+
+---
+
+## ⚠️ نکات حیاتی و عیب‌یابی (Important Notes & Troubleshooting)
+
+### **۱. غیرفعال کردن Phantom Process Killer (اندروید ۱۲ و بالاتر)**
+برای جلوگیری از بسته‌شدن خودکار فرآیندها توسط سیستم، این دستور را از طریق **ADB** اجرا کنید [citation:9]:
+```bash
+adb shell "/system/bin/device_config put activity_manager max_phantom_processes 2147483647"
+```
+
+### **۲. رفع مشکل صفحه سیاه در Termux:X11**
+اگر پس از اجرا صفحه سیاه دیدید، این دستورات را در Termux اجرا کنید:
+```bash
+for file in $(find /usr -type f -iname "*login1*"); do 
+    mv -v $file "$file.back"
+done
+echo "chmod u+s /usr/lib/dbus-1.0/dbus-daemon-launch-helper" >> ~/.bashrc
+exit
+```
+
+### **۳. حداقل نیازمندی‌های سخت‌افزاری**
+*   **رم آزاد:** حداقل ۴ گیگابایت (توصیه ۶+ گیگابایت) [citation:9].
+*   **فضای ذخیره‌سازی:** حداقل ۱۵ گیگابایت خالی [citation:9].
+*   **پردازنده:** معماری ARM64 پشتیبانی می‌شود [citation:9].
+
+### **۴. نکته عملکردی**
+برای بهبود سرعت، در برنامه Termux:X11 کیفیت تصویر را روی حالت "High" تنظیم کنید.
+
+---
+
+## 📚 منابع و الهام‌گیری (Sources & Inspiration)
+این پروژه بر اساس کارهای موفق جامعه منبع‌باز مانند **Windroid Emulator** [citation:9] و **BOXVIDRA Emulator** ساخته شده است.
